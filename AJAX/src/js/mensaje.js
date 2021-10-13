@@ -40,7 +40,7 @@ const consultarMensaje = () =>{
                                                     <td>${json.items[i].messagetext}</td>
                                                     <td>
                                                         <span> 
-                                                            <a href="../../update/mensaje.html"   onclick="saveId(${json.items[i].id})" id="${json.items[i].id}">
+                                                            <a href="../../AJAX/update/mensaje.html"   onclick="saveId(${json.items[i].id})" id="${json.items[i].id}">
                                                                 <ion-icon name="create-outline" ></ion-icon>
                                                             </a>
                                                         </span> 
