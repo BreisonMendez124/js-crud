@@ -40,7 +40,7 @@ const consultarCliente = () =>{
                                                     <td>${json.items[i].age} </td>
                                                     <td>
                                                         <span> 
-                                                            <a onclick="saveId(${json.items[i].id})" href="../../update/cliente.html" >
+                                                            <a onclick="saveId(${json.items[i].id})" href="../../AJAX/update/cliente.html" >
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                             </a>
                                                         </span> 
