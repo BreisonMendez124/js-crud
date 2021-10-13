@@ -43,7 +43,7 @@ const consultar = () =>{
                                                     <td>${json.items[i].name} </td>
                                                     <td>
                                                        <span> 
-                                                            <a href="../../update/disfraz.html"  id="${json.items[i].id}"  onclick="saveId(${json.items[i].id})" >
+                                                            <a href="../../AJAX/update/disfraz.html"  id="${json.items[i].id}"  onclick="saveId(${json.items[i].id})" >
                                                                     <ion-icon name="create-outline"></ion-icon>
                                                             </a>
                                                         </span> 
