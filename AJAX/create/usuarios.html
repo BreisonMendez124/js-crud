@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- =========================================================================================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>      
+    <!-- ===Bootstrap======================================================================================================================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
+    <!-- =========================================================================================================================== -->
+    <script src="../src/js/cliente.js"></script>
+</head>
+<body>
+
+      <div class="container mt-3">
+        <h4>Registrate en nuestra aplicacion!</h4>        
+          <!-- <div class="form-group mt-2">
+            <label for="id"># Id</label>
+            <input type="number" id="id" class="form-control"  placeholder="Ingresa tu  Ingresa la clave">
+            <small class="form-text text-muted">Identificador del cliente</small>
+          </div> -->
+          <div class="form-group mt-2">
+            <label for="Name">Nombre</label>
+            <input type="text" id="name" class="form-control"  placeholder="Ingresa tu Nombre">
+          </div>
+  
+          <div class="form-group mt-2">
+              <label for="Email">Correo</label>
+              <input type="text" id="email"  class="form-control" placeholder="Ingresa tu correo">
+            </div>
+  
+            <div class="form-group mt-2 mb-3">
+              <label for="Age">Edad</label>
+              <input type="number" id="age"  class="form-control" placeholder="Ingresa tu edad">
+            </div>
+            <div class="form-group mt-2">
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" class="form-control"  placeholder="Ingresa tu Contraseña">
+            </div>
+          <button type="submit" class="btn btn-primary mt-3" onclick="insertarCliente()">Registrar</button>
+          <a href="../login.html" class="btn btn-success mt-3">Volver</a>
+        
+      </div>
+
+<footer class="bg-dark container-fluid fixed-bottom ">
+    <div class="p-3">
+        <h5 class="text-white text-center">breisonmendez778@gmail.com</h5>
+    </div>
+</footer>
+</body>
+</html>
