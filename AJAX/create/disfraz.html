@@ -16,66 +16,66 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="../index.html">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Consultar
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="../dates/cliente.html">Cliente</a></li>
-                  <li><a class="dropdown-item" href="../dates/disfraz.html">Disfraz</a></li>
-                  <li><a class="dropdown-item" href="../dates/mensaje.html">Mensajes</a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Registrar
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="cliente.html">Cliente</a></li>
-                  <li><a class="dropdown-item" href="disfraz.html">Disfraz</a></li>
-                  <li><a class="dropdown-item" href="message.html">Mensajes</a></li>
-                </ul>
-              </li>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Consultar
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="../dates/cliente.html">Cliente</a></li>
+              <li><a class="dropdown-item" href="../dates/disfraz.html">Disfraz</a></li>
+              <li><a class="dropdown-item" href="../dates/categoria.html">Categoria</a></li>
             </ul>
-          </div>
-        </div>
-      </nav>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Registrar
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="cliente.html">Cliente</a></li>
+              <li><a class="dropdown-item" href="disfraz.html">Disfraz</a></li>
+              <li><a class="dropdown-item" href="categoria.html">Categoria</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
     <div class="container mt-3">
+
+      <div class="form-group mt-2 mb-3">
+        <label for="Nombre">Nombre</label>
+        <input type="text" id="name" name="data"  placeholder="nombre" class="form-control">
+      </div>
       
-        <div class="form-group mt-2">
-          <label for="id"># Id</label>
-          <input type="number" id="id" name="data" class="form-control"  placeholder="Ingresa la clave">
-          <small class="form-text text-muted">Clave principal del producto</small>
-        </div>
         <div class="form-group mt-2">
           <label for="marca">Marca</label>
           <input type="text" id="brand" name="data" placeholder="marca" class="form-control">
         </div>
 
         <div class="form-group mt-2">
-            <label for="Modelo">Modelo</label>
-            <input type="number" id="model" name="data" placeholder="modelo" class="form-control">
+            <label for="Modelo">Año</label>
+            <input type="number" id="age" name="data" placeholder="año" class="form-control">
           </div>
 
-          <div class="form-group mt-2">
-            <label for="Categoria">Numero de categoria</label>
-            <input type="number" id="category_id" name="data" placeholder="categoria" class="form-control">
-          </div>
+          <select name="" id="category" class="form-control country">
+            <option value="" selected> Selecciona una Categoria</option>
+          </select>
 
+          
           <div class="form-group mt-2 mb-3">
-            <label for="Nombre">Nombre</label>
-            <input type="text" id="name" name="data"  placeholder="nombre" class="form-control">
+            <label for="Descripcion">Descripcion</label>
+            <input type="text" id="description" name="data"  placeholder="Descripcion" class="form-control">
           </div>
+
         <button class="btn btn-primary" onclick="insertarDisfraz()">Registrarse</button>
-      
     </div>
 
 <footer class="bg-dark container-fluid fixed-bottom ">
@@ -83,6 +83,40 @@
         <h5 class="text-white text-center">breisonmendez778@gmail.com</h5>
     </div>
 </footer>
-<script src="../js.js"></script>
+
+<script>
+
+
+const consultarCategoria = () =>{
+    $.ajax( {
+        url         : 'http://155.248.231.81:8080/api/Category/all',
+        type        : 'GET',
+        dataType    : 'json',
+        success     : function(json){
+          if(json.length > 0){
+            
+           if(json.length >0){
+
+           
+                      for(let i = 0; i < json.length; i++){
+                          let category = $('#category').append(`<option value="${json[i].id}" id="${json[i].id}">${json[i].name}</option`)
+                        }
+                      }
+                }else{
+                  let category = $('#category').append(`<option value="" id="">No tienes categorias para mostrar</option`)
+                }
+                        console.log(json);
+                      },
+        error       :function(xhr,status){
+                        console.error(`no se puede conectar al servicio :( ${xhr}`);
+                    }
+
+        
+    })
+}
+
+consultarCategoria()
+
+</script>
 </body>
 </html>

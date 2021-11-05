@@ -6,55 +6,57 @@ const saveId = (id) =>{
 // CLIENTE
 const borrarCliente = (idCliente) =>{
     let id = {
-        id:idCliente
+        idClient:idCliente
     }
-    let datosEnvio =JSON.stringify(id);
+    // let datosEnvio =JSON.stringify(id);
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
+        url         : `http://155.248.231.81:8080/api/Client/${idCliente}`,
         type        : 'DELETE',
-        data        : datosEnvio,
+        // data        : datosEnvio,
         contentType :'application/json',
         success     : function(response){
                         alert("se elimino el dato :(", response)
+                        consultarCliente();
+                        location.reload();
 
                       },
         error       :function(xhr,status){
                         console.error(`no se puede conectar al servicio :( ${xhr}`);
                     }    
-    })   
-    consultarCliente();
+    })
+    
+    
 }
 const consultarCliente = () =>{
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
+        url         : 'http://155.248.231.81:8080/api/Client/all',
         type        : 'GET',
         dataType    : 'json',
         success     : function(json){
                         $('#tabla').empty();
-                        for(let i = 0; i < json.items.length; i++){
+                        for(let i = 0; i < json.length; i++){
                             $('#tabla').append(`
                                                 <tr>
-                                                    <td>${json.items[i].id} </td>
-                                                    <td>${json.items[i].name}</td>
-                                                    <td>${json.items[i].email} </td>
-                                                    <td>${json.items[i].age} </td>
+                                                    <td>${json[i].idClient} </td>
+                                                    <td>${json[i].name}</td>
+                                                    <td>${json[i].email} </td>
+                                                    <td>${json[i].age} </td>
                                                     <td>
                                                         <span> 
-                                                            <a onclick="saveId(${json.items[i].id})" href="../../AJAX/update/cliente.html" >
+                                                            <a onclick="saveId(${json[i].idClient})" href="../../update/cliente.html" >
                                                                 <ion-icon name="create-outline"></ion-icon>
                                                             </a>
                                                         </span> 
                                                     </td>
                                                     <td>
                                                         <span> 
-                                                            <a href="#" onclick="borrarCliente(${json.items[i].id})" >
+                                                            <a href="#" onclick="borrarCliente(${json[i].idClient})" >
                                                                 <ion-icon name="close-circle-outline"></ion-icon>
                                                             </a>
                                                         </span>
                                                     </td>
                                                  </tr>`);
                         }
-                        console.log(json);
                       },
         error       :function(xhr,status){
                         console.error(`no se puede conectar al servicio :( ${xhr}`);
@@ -65,28 +67,34 @@ const consultarCliente = () =>{
 }
 // consultarCliente();
 const insertarCliente = () =>{
-    let id = $('#id').val();
     let name = $('#name').val();
     let email = $('#email').val();
     let age = $('#age').val();
-    
+    let password = $('#password').val();
+
     const CLIENTE = {
-        id:id,
-        name:name,
         email:email,
-        age:age
+        password:password,
+        name:name,
+        age:age,
+        messages:null,
+        reservations:null
     }
 
+    let datosEnvio =JSON.stringify(CLIENTE);
+
+
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/client/client',
+        url         : 'http://155.248.231.81:8080/api/Client/save',
         type        : 'POST',
-        data        : CLIENTE,
+        data        : datosEnvio,
+        contentType :'application/json',
         success     : function(response){
                         alert("se insertaron los datos correctamente", response)
 
                       },
         error       :function(xhr,status){
-                        console.error(`no se puede conectar al servicio :( ${xhr}`);
+                        console.error(`no se puede conectar al servicio :c ${xhr}`);
                     }
 
         

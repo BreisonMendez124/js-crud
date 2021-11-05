@@ -10,9 +10,9 @@ const borrarMensaje = (idProducto) =>{
     }
     let datosEnvio =JSON.stringify(id);
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/message/message',
+        url         : `http://155.248.231.81:8080/api/Message/${idProducto}`,
         type        : 'DELETE',
-        data        : datosEnvio,
+        // data        : datosEnvio,
         contentType :'application/json',
         success     : function(response){
                         alert("se elimino el dato :(", response)
@@ -24,30 +24,31 @@ const borrarMensaje = (idProducto) =>{
 
         
     })   
+    location.reload(); 
     consultarMensaje();
 }
 const consultarMensaje = () =>{
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/message/message',
+        url         : 'http://155.248.231.81:8080/api/Message/all',
         type        : 'GET',
         dataType    : 'json',
         success     : function(json){
                         $('#tabla').empty();
-                        for(let i = 0; i < json.items.length; i++){
+                        for(let i = 0; i < json.length; i++){
                             $('#tabla').append(`
                                                 <tr>
-                                                    <td>${json.items[i].id} </td>
-                                                    <td>${json.items[i].messagetext}</td>
+                                                    <td>${json[i].idMessage} </td>
+                                                    <td>${json[i].messagetext}</td>
                                                     <td>
                                                         <span> 
-                                                            <a href="../../AJAX/update/mensaje.html"   onclick="saveId(${json.items[i].id})" id="${json.items[i].id}">
+                                                            <a href="../../update/mensaje.html"   onclick="saveId(${json[i].idMessage})" id="${json[i].idMessage}">
                                                                 <ion-icon name="create-outline" ></ion-icon>
                                                             </a>
                                                         </span> 
                                                     </td>
                                                     <td>
                                                         <span> 
-                                                            <a href="#" onclick="borrarMensaje(${json.items[i].id})" id="${json.items[i].id}">
+                                                            <a href="#" onclick="borrarMensaje(${json[i].idMessage})" id="${json[i].idMessage}">
                                                                 <ion-icon name="close-circle-outline"></ion-icon>
                                                             </a>
                                                         </span>
@@ -68,14 +69,19 @@ const insertarMensaje = () => {
     let mensaje = $('#mensaje').val();
 
     const MENSAJE = {
-        id:id,
-        messagetext:mensaje
+        idMessage:id,
+        messageText:mensaje,
+        costume:null,
+        client:null
     }
 
+    let datosEnvio = JSON.stringify(MENSAJE)
+
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/message/message',
+        url         : 'http://155.248.231.81:8080/api/Message/save',
         type        : 'POST',
-        data        : MENSAJE,
+        data        : datosEnvio,
+        contentType :'application/json',
         success     : function(response){
                         alert("se insertaron los datos correctamente", response)
 

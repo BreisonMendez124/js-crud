@@ -15,6 +15,15 @@
     <script src="../src/js/disfraz.js"></script>
 </head>
 <body>
+  <style>
+    .hidden {
+      display: none;
+    }
+    label {
+      margin-bottom: 10px;
+      display: block;
+    }
+  </style>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="../index.html">Navbar</a>
@@ -24,13 +33,14 @@
           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
+
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Consultar
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                   <li><a class="dropdown-item" href="../dates/cliente.html">Cliente</a></li>
                   <li><a class="dropdown-item" href="../dates/disfraz.html">Disfraz</a></li>
-                  <li><a class="dropdown-item" href="../dates/mensaje.html">Mensajes</a></li>
+                  <li><a class="dropdown-item" href="../dates/categoria.html">Categoria</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -40,9 +50,10 @@
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                   <li><a class="dropdown-item" href="cliente.html">Cliente</a></li>
                   <li><a class="dropdown-item" href="disfraz.html">Disfraz</a></li>
-                  <li><a class="dropdown-item" href="message.html">Mensajes</a></li>
+                  <li><a class="dropdown-item" href="categoria.html">Categorias</a></li>
                 </ul>
               </li>
+              <!-- <li><button id="btn-logout" disabled="true" onclick="logout()">Log out</button></li> -->
             </ul>
           </div>
         </div>
@@ -50,61 +61,82 @@
 
       <div class="container mt-3">
         
-          <div class="form-group mt-2">
+          <div class="form-group mt-2"   style="display:none;">
             <label for="id"># Id</label>
-            <input type="number" id="id" name="data" class="form-control"  placeholder="Ingresa la clave" disabled style="display:none;">
+            <input type="number" id="id" name="data" class="form-control"  placeholder="Ingresa la clave" disabled>
             <small class="form-text text-muted">Clave principal del producto</small>
           </div>
+
+          <div class="form-group mt-2 mb-3">
+            <label for="Nombre">Nombre</label>
+            <input type="text" id="name" name="data"   placeholder="nombre" class="form-control">
+          </div>
+
           <div class="form-group mt-2">
             <label for="marca">Marca</label>
-            <input type="text" id="brand" name="data" placeholder="marca" class="form-control" >
+            <input type="text" id="brand" name="data" placeholder="marca" class="form-control">
           </div>
   
           <div class="form-group mt-2">
-              <label for="Modelo">Modelo</label>
-              <input type="number" id="model" name="data" placeholder="modelo" class="form-control">
+              <label for="Año">Año</label>
+              <input type="text" id="age" name="data" placeholder="Año" class="form-control">
             </div>
   
             <div class="form-group mt-2">
-              <label for="Categoria">Numero de categoria</label>
-              <input type="number" id="category_id" name="data" placeholder="categoria" class="form-control">
-            </div>
-            <div class="form-group mt-2 mb-3">
-              <label for="Nombre">Nombre</label>
-              <input type="text" id="name" name="data"   placeholder="nombre" class="form-control">
+              <label for="Descripcion">Descripcion</label>
+              <input type="text" id="description" name="data" placeholder="Descripcion" class="form-control">
             </div>
 
-          <button class="btn btn-primary" onclick="actualizarDisfraz()">Actaulizar</button>
+
+          <button class="btn btn-primary" onclick="actualizarDisfraz()">Actualizar</button>
       </div>
+
+  <div style="display: none;">  
+    <div class="hidden" id="gated-content">
+      
+      <label>
+        Access token:
+        <pre id="ipt-access-token"></pre>
+      </label>
+      <label>
+        User profile:
+        <pre id="ipt-user-profile"></pre>
+        <h1>Bienvenido a CRUD APP dale continuar</h1>
+        <a href="dates/disfraz.html" class="btn btn-primary"> Continuar</a>
+      </label>
+    </div>
+
+  </div>
 
 <footer class="bg-dark container-fluid fixed-bottom ">
     <div class="p-3">
         <h5 class="text-white text-center">breisonmendez778@gmail.com</h5>
     </div>
-
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
+    <script src="src/js/login.js"></script>
     <script>
 
 const conseguirDatos = () =>{
     let codigo = localStorage.getItem('id');
     let id = $('#id');
+    let age = $('#age');
     let brand = $('#brand');
-    let model = $('#model');
-    let category_id = $('#category_id');
+    let description = $('#description');
     let name = $('#name');
 
 
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/costume/costume/' + codigo,
+        url         : `http://155.248.231.81:8080/api/Costume/${codigo}` ,
         type        : 'GET',
         dataType    : 'json',
         success     : function(json){
-                        for(let i = 0; i < json.items.length; i++){
-                            id.val(`${json.items[i].id}`);
-                            brand.val(`${json.items[i].brand}`);
-                            model.val(`${json.items[i].model}`);
-                            category_id.val(`${json.items[i].category_id}`);
-                            name.val(`${json.items[i].name}`); 
-                        }
+                        
+                            id.val(`${json.id}`);
+                            name.val(`${json.name}`); 
+                            brand.val(`${json.brand}`);
+                            age.val(`${json.year}`);
+                            description.val(`${json.description}`);
+                                 
                       },
         error       :function(xhr,status){
                         console.error(`no se puede conectar al servicio :( ${xhr}`);
@@ -116,21 +148,23 @@ conseguirDatos();
 const actualizarDisfraz = () => {
     let id = parseInt($('#id').val());
     let brand = $('#brand').val();
-    let model =  parseInt($('#model').val());
-    let category_id = parseInt( $('#category_id').val());
     let name = $('#name').val();
+    let age = parseInt($('#age').val());
+    let description = $('#description').val();
     
      const DISFRAZ = {
         id:id,
+        name:name,
         brand:brand,
-        model:model,
-        category_id:category_id,
-        name:name
+        year:age,
+        description:description,
+        category:null,
+        messages:null,
+        reservations:null
     }
-    console.log(DISFRAZ)
     let datosEnvio = JSON.stringify(DISFRAZ);
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/costume/costume',
+        url         : 'http://155.248.231.81:8080/api/Costume/update',
         type        : 'PUT',
         data        : datosEnvio,
         contentType :'application/json',

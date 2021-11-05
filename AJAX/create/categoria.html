@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
     <!-- =========================================================================================================================== -->
-    <script src="../src/js/cliente.js"></script>
+    <script src="../src/js/categoria.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,7 +30,7 @@
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                   <li><a class="dropdown-item" href="../dates/cliente.html">Cliente</a></li>
                   <li><a class="dropdown-item" href="../dates/disfraz.html">Disfraz</a></li>
-                  <li><a class="dropdown-item" href="../dates/categoria.html">Categorias</a></li>
+                  <li><a class="dropdown-item" href="../dates/categoria.html">Categoria</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
@@ -40,7 +40,7 @@
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                   <li><a class="dropdown-item" href="cliente.html">Cliente</a></li>
                   <li><a class="dropdown-item" href="disfraz.html">Disfraz</a></li>
-                  <li><a class="dropdown-item" href="categoria.html">Categorias</a></li>
+                  <li><a class="dropdown-item" href="categoria.html">Categoria</a></li>
                 </ul>
               </li>
             </ul>
@@ -51,27 +51,16 @@
       <div class="container mt-3">
         
           <div class="form-group mt-2">
-            <label for="id"># Id</label>
-            <input type="number" id="id" value="" class="form-control"  placeholder="Ingresa tu  Ingresa la clave" disabled style="display:none;">
-            <small class="form-text text-muted">Identificador del cliente</small>
-          </div>
-          <div class="form-group mt-2">
             <label for="Name">Nombre</label>
-            <input type="text" id="name" value="" class="form-control"  placeholder="Ingresa tu Nombre">
+            <input type="text" id="name" class="form-control"  placeholder="Ingresa tu Nombre">
           </div>
   
           <div class="form-group mt-2">
-              <label for="Email">Correo</label>
-              <input type="text" id="email"  value="" class="form-control" placeholder="Ingresa tu correo">
-            </div>
-  
-            <div class="form-group mt-2 mb-3">
-              <label for="Age">Edad</label>
-              <input type="number" id="age" value="" class="form-control" placeholder="Ingresa tu edad">
+              <label for="Description">Descripcion</label>
+              <input type="text" id="description"  class="form-control" placeholder="Ingresa la descripcion">
             </div>
 
-
-          <button type="submit" class="btn btn-primary" onclick="actualizarCliente()">Actualizar</button>
+          <button type="submit" class="btn btn-primary" onclick="insertarCategoria()">Registrar</button>
         
       </div>
 
@@ -79,66 +68,8 @@
     <div class="p-3">
         <h5 class="text-white text-center">breisonmendez778@gmail.com</h5>
     </div>
-
-    <script>
-const conseguirDatos = () =>{
-    let codigo = localStorage.getItem('id');
-    let id = $('#id');
-    let name = $('#name');
-    let email = $('#email');
-    let age = $('#age');
-
-    $.ajax( {
-        url         : `http://155.248.231.81:8080/api/Client/${codigo}`,
-        type        : 'GET',
-        dataType    : 'json',
-        success     : function(json){                        
-                          
-                            id.val(`${json.idClient}`);
-                            name.val(`${json.name}`);
-                            email.val(`${json.email}`);
-                            age.val(`${json.age}`);
-                        
-                      },
-        error       :function(xhr,status){
-                        console.error(`no se puede conectar al servicio :( ${xhr}`);
-                    }  
-    })
-    localStorage.clear();
-}
-conseguirDatos();
-const actualizarCliente = () => {
-    let id = parseInt($('#id').val());
-    let name = $('#name').val();
-    let email = $('#email').val();
-    let age = $('#age').val();
-    
-
-    let ageInt = parseInt(age);
-    const CLIENTE = {
-      idClient:id,
-      name:name,
-      email:email,
-      password:null,
-      age:ageInt
-    }
-    console.log(CLIENTE)
-    let datosEnvio = JSON.stringify(CLIENTE);
-    $.ajax( {
-        url         : 'http://155.248.231.81:8080/api/Client/update',
-        type        : 'PUT',
-        data        : datosEnvio,
-        contentType :'application/json',
-        success     : function(response){
-                        alert("se actualizo el dato :)", response)
-                      },
-        error       :function(xhr,status){
-                        console.error(`no se puede conectar al servicio :( ${xhr}`);
-                    }    
-    })   
-    localStorage.clear();
-}
-    </script>
 </footer>
+
 </body>
 </html>
+

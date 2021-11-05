@@ -77,13 +77,13 @@ const conseguirDatos = () =>{
     let mensaje = $('#mensaje');
 
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/message/message/' + codigo,
+        url         : 'http://155.248.231.81:8080/api/Message/' + codigo,
         type        : 'GET',
         dataType    : 'json',
         success     : function(json){
-                        for(let i = 0; i < json.items.length; i++){
-                            id.val(`${json.items[i].id}`);
-                            mensaje.val(`${json.items[i].messagetext}`);
+                        for(let i = 0; i < json.length; i++){
+                            id.val(`${json[i].idMessage}`);
+                            mensaje.val(`${json[i].messagetext}`);
                         }
                       },
         error       :function(xhr,status){
@@ -98,12 +98,12 @@ const actualizarMensaje = () => {
     let mensaje = $('#mensaje').val();
     
     const MENSAJE = {
-        id:id,
+        idMessage:id,
         messagetext:mensaje
     }
     let datosEnvio = JSON.stringify(MENSAJE);
     $.ajax( {
-        url         : 'https://g871356b15e6ccc-dbprimerreto.adb.ca-montreal-1.oraclecloudapps.com/ords/admin/message/message',
+        url         : 'http://155.248.231.81:8080/api/Message/update',
         type        : 'PUT',
         data        : datosEnvio,
         contentType :'application/json',
